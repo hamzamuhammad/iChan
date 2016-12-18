@@ -16,6 +16,9 @@
 		1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651A1E063D350001A9EC /* PageViewController.swift */; };
 		1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651C1E063F230001A9EC /* PageTableViewController.swift */; };
 		1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */; };
+		1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */; };
+		1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */; };
+		1F7BD6DE1E06C5B20083984D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DD1E06C5B20083984D /* Page.swift */; };
 		1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */; };
 		70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */; };
 /* End PBXBuildFile section */
@@ -32,6 +35,9 @@
 		1F71651A1E063D350001A9EC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		1F71651C1E063F230001A9EC /* PageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewController.swift; sourceTree = "<group>"; };
 		1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewThreadViewController.swift; sourceTree = "<group>"; };
+		1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedEqualizerView.swift; sourceTree = "<group>"; };
+		1F7BD6DD1E06C5B20083984D /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
 		C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.release.xcconfig"; sourceTree = "<group>"; };
 		E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,12 +82,15 @@
 				1F71651C1E063F230001A9EC /* PageTableViewController.swift */,
 				1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */,
 				1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */,
+				1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */,
+				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
 				1F7165121E062BD10001A9EC /* Info.plist */,
 				1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */,
 				1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */,
+				1F7BD6DD1E06C5B20083984D /* Page.swift */,
 			);
 			path = iChan;
 			sourceTree = "<group>";
@@ -232,6 +241,9 @@
 				1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */,
 				1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */,
 				1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */,
+				1F7BD6DE1E06C5B20083984D /* Page.swift in Sources */,
+				1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */,
+				1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */,
 				1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
