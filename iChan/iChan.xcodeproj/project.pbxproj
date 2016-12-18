@@ -8,22 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7165031E062BD10001A9EC /* AppDelegate.swift */; };
-		1F7165061E062BD10001A9EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7165051E062BD10001A9EC /* ViewController.swift */; };
 		1F7165091E062BD10001A9EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7165071E062BD10001A9EC /* Main.storyboard */; };
 		1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */; };
 		1F71650E1E062BD10001A9EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F71650D1E062BD10001A9EC /* Assets.xcassets */; };
 		1F7165111E062BD10001A9EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */; };
+		1F7165191E062C4D0001A9EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */; };
+		1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651A1E063D350001A9EC /* PageViewController.swift */; };
+		1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651C1E063F230001A9EC /* PageTableViewController.swift */; };
+		70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F7165001E062BD10001A9EC /* iChan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7165031E062BD10001A9EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F7165051E062BD10001A9EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F7165081E062BD10001A9EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F71650B1E062BD10001A9EC /* iChan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iChan.xcdatamodel; sourceTree = "<group>"; };
 		1F71650D1E062BD10001A9EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F7165101E062BD10001A9EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F7165121E062BD10001A9EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1F71651A1E063D350001A9EC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		1F71651C1E063F230001A9EC /* PageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewController.swift; sourceTree = "<group>"; };
+		C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.release.xcconfig"; sourceTree = "<group>"; };
+		E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5DED7F86BF5D1451AF38A8F /* Pods-iChan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +51,8 @@
 			children = (
 				1F7165021E062BD10001A9EC /* iChan */,
 				1F7165011E062BD10001A9EC /* Products */,
+				8E9E42A2DAE80C969B0EC781 /* Pods */,
+				EC803EEB7BEBFD06D1E2F67C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +68,33 @@
 			isa = PBXGroup;
 			children = (
 				1F7165031E062BD10001A9EC /* AppDelegate.swift */,
-				1F7165051E062BD10001A9EC /* ViewController.swift */,
+				1F71651A1E063D350001A9EC /* PageViewController.swift */,
+				1F71651C1E063F230001A9EC /* PageTableViewController.swift */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
 				1F7165121E062BD10001A9EC /* Info.plist */,
 				1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */,
+				1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */,
 			);
 			path = iChan;
+			sourceTree = "<group>";
+		};
+		8E9E42A2DAE80C969B0EC781 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F5DED7F86BF5D1451AF38A8F /* Pods-iChan.debug.xcconfig */,
+				C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EC803EEB7BEBFD06D1E2F67C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +104,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F7165151E062BD10001A9EC /* Build configuration list for PBXNativeTarget "iChan" */;
 			buildPhases = (
+				F8923B0886BF29D9A9E813D3 /* [CP] Check Pods Manifest.lock */,
 				1F7164FC1E062BD10001A9EC /* Sources */,
 				1F7164FD1E062BD10001A9EC /* Frameworks */,
 				1F7164FE1E062BD10001A9EC /* Resources */,
+				4694F720BC1B08F6B31077F3 /* [CP] Embed Pods Frameworks */,
+				31C4D039A3A5C3A0DEC7640B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F7165111E062BD10001A9EC /* LaunchScreen.storyboard in Resources */,
+				1F7165191E062C4D0001A9EC /* GoogleService-Info.plist in Resources */,
 				1F71650E1E062BD10001A9EC /* Assets.xcassets in Resources */,
 				1F7165091E062BD10001A9EC /* Main.storyboard in Resources */,
 			);
@@ -134,13 +168,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		31C4D039A3A5C3A0DEC7640B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iChan/Pods-iChan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4694F720BC1B08F6B31077F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iChan/Pods-iChan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8923B0886BF29D9A9E813D3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1F7164FC1E062BD10001A9EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */,
+				1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */,
 				1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */,
-				1F7165061E062BD10001A9EC /* ViewController.swift in Sources */,
 				1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +343,7 @@
 		};
 		1F7165161E062BD10001A9EC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5DED7F86BF5D1451AF38A8F /* Pods-iChan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = iChan/Info.plist;
@@ -272,6 +356,7 @@
 		};
 		1F7165171E062BD10001A9EC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = iChan/Info.plist;
@@ -301,6 +386,7 @@
 				1F7165171E062BD10001A9EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

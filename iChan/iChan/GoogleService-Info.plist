@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>855238652246-icj98i90i1gt9i3h3hpv8v4s2nksfq5v.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.855238652246-icj98i90i1gt9i3h3hpv8v4s2nksfq5v</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBapaA910L_Mpfs1whqrXH_IyzjxX9GA40</string>
+	<key>GCM_SENDER_ID</key>
+	<string>855238652246</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Ham.iChan</string>
+	<key>PROJECT_ID</key>
+	<string>ichan-ec477</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ichan-ec477.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:855238652246:ios:b8251c0607c29c8c</string>
+	<key>DATABASE_URL</key>
+	<string>https://ichan-ec477.firebaseio.com</string>
+</dict>
+</plist>
