@@ -14,23 +14,59 @@
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="uDt-c9-xeE" customClass="PageViewController" customModule="iChan" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="/tv/ - Television &amp; Film" id="WeZ-RW-CS5">
+                            <connections>
+                                <action selector="changeBoard:" destination="uDt-c9-xeE" id="1ta-xM-eIR"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="uEo-WC-1ad">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="srX-HJ-i7B"/>
-                        <pageControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="dIO-Sn-Sr0">
-                            <rect key="frame" x="56" y="4" width="263" height="37"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="srX-HJ-i7B"/>
+                        <pageControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="dIO-Sn-Sr0">
+                            <rect key="frame" x="52" y="4" width="274" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </pageControl>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="fjl-Td-TsO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="fjl-Td-TsO"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="boardButton" destination="WeZ-RW-CS5" id="t0Y-pS-OVs"/>
                         <outlet property="pageControl" destination="dIO-Sn-Sr0" id="Gow-Fo-6Co"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LJj-tl-KtQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2535.1999999999998" y="26.53673163418291"/>
+        </scene>
+        <!--Board Table View Controller-->
+        <scene sceneID="Jyh-B9-7Vh">
+            <objects>
+                <tableViewController storyboardIdentifier="BoardTableViewController" id="XvD-9C-c6S" customClass="BoardTableViewController" customModule="iChan" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FGW-gc-9rw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ob2-hV-kuW">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ob2-hV-kuW" id="6gN-NL-Hwk">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="XvD-9C-c6S" id="O00-aQ-gJk"/>
+                            <outlet property="delegate" destination="XvD-9C-c6S" id="WxI-RK-Mvx"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ShG-1H-5DD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2535" y="834"/>
         </scene>
         <!--Page Table View Controller-->
         <scene sceneID="gaW-LF-gJM">
@@ -60,7 +96,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6A9-ci-KSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4868" y="35.532233883058474"/>
+            <point key="canvasLocation" x="4631" y="27"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ypr-Up-LQ0">
@@ -78,7 +114,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qdp-F5-y9p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3959.1999999999998" y="35.532233883058474"/>
+            <point key="canvasLocation" x="3646" y="27"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9IM-d3-htF">
@@ -101,7 +137,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hT2-Dh-9c2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596" y="26.53673163418291"/>
+            <point key="canvasLocation" x="1599" y="27"/>
         </scene>
     </scenes>
 </document>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController {
+class PageViewController: UIPageViewController, UIPopoverPresentationControllerDelegate {
     
     private(set) lazy var orderedViewControllers: [UITableViewController] = {
         return [self.newPageTableViewController(),
@@ -22,6 +22,33 @@ class PageViewController: UIPageViewController {
     }
     
     @IBOutlet var pageControl: UIPageControl!
+    @IBOutlet var boardButton: UIBarButtonItem!
+    
+    @IBAction func changeBoard(_ sender: Any) {
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "BoardTableViewController") as! UITableViewController
+        popoverContent.modalPresentationStyle = .popover
+        
+        if let popover = popoverContent.popoverPresentationController {
+            
+//            let viewForSource = sender as! UIButton
+//            popover.sourceView = viewForSource
+//            
+//            // the position of the popover where it's showed
+//            popover.sourceRect = viewForSource.bounds
+            
+            // the size you want to display
+            popoverContent.preferredContentSize = CGSize(width: 200,height: 300)
+            
+            popover.barButtonItem = boardButton
+            popover.delegate = self
+        }
+        
+        self.present(popoverContent, animated: true, completion: nil)
+    }
+    
+   func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
