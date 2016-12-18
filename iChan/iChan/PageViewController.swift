@@ -21,7 +21,6 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
             instantiateViewController(withIdentifier: "PageTableViewController") as! UITableViewController
     }
     
-    @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var boardButton: UIBarButtonItem!
     
     @IBAction func changeBoard(_ sender: Any) {
@@ -30,13 +29,6 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         
         if let popover = popoverContent.popoverPresentationController {
             
-//            let viewForSource = sender as! UIButton
-//            popover.sourceView = viewForSource
-//            
-//            // the position of the popover where it's showed
-//            popover.sourceRect = viewForSource.bounds
-            
-            // the size you want to display
             popoverContent.preferredContentSize = CGSize(width: 200,height: 300)
             
             popover.barButtonItem = boardButton
@@ -54,7 +46,6 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         dataSource = self
         
         if let firstViewController = orderedViewControllers.first {
@@ -64,8 +55,6 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
                                completion: nil)
         }
         
-        pageControl.numberOfPages = orderedViewControllers.count
-        pageControl.currentPage = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,14 +88,13 @@ extension PageViewController: UIPageViewControllerDataSource {
         let previousIndex = viewControllerIndex - 1
         
         guard previousIndex >= 0 else {
-            return orderedViewControllers.last
+            return nil
         }
         
         guard orderedViewControllers.count > previousIndex else {
             return nil
         }
         
-        pageControl.currentPage = previousIndex
         return orderedViewControllers[previousIndex]
     }
     
@@ -120,15 +108,13 @@ extension PageViewController: UIPageViewControllerDataSource {
         let orderedViewControllersCount = orderedViewControllers.count
         
         guard orderedViewControllersCount != nextIndex else {
-            pageControl.currentPage = 0
-            return orderedViewControllers.first
+            return nil
         }
         
         guard orderedViewControllersCount > nextIndex else {
             return nil
         }
         
-        pageControl.currentPage = nextIndex
         return orderedViewControllers[nextIndex]
     }
 }
