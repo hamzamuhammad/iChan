@@ -16,6 +16,8 @@ class LaunchViewController: UIViewController {
     
     let ref = FIRDatabase.database().reference()
     
+    private var page: Page!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,11 +30,8 @@ class LaunchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         // get the currently saved board
-
-        
         let defaults = UserDefaults.standard
 
-        
         // we do this whenever the board button is pressed
         // defaults.set("theGreatestName", forKey: "username")
         var board: String = ""
@@ -42,16 +41,23 @@ class LaunchViewController: UIViewController {
             board = userBoard
         }
         
-        // pull data for the first page
-        ref.child("\(board)_0").observeSingleEvent(of: .value, with: { (snapshot) in
+        // sort based off of date
+        let query = ref.child("\(board)").queryOrdered(byChild: "date")
+        
+        // get the newest 5 posts for a certain board
+        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
             
-            // Get full page and set up objects
-            let value = snapshot.value as? NSDictionary
+            // go through each post
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                
+                // create the post and add to the page
+                let post = Post(snapshot: rest)
+                self.page.addPost(originalPost: post)
+            }
             
-            let username = value?["username"] as? String ?? ""
-            let user = User.init(username: username)
-            
-            // ...
+            // after everything is fully loaded, call the segue
+            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -73,9 +79,9 @@ class LaunchViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "LaunchSegue" {
-            // prepare the main app for this
-            print("get here")
-            
+            // send our page object to the main page view
+            let pageViewController = segue.destination as! PageViewController
+            pageViewController.currentPage = page
         }
     }
 

@@ -10,6 +10,8 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPopoverPresentationControllerDelegate {
     
+    var currentPage: Page!
+    
     private(set) lazy var orderedViewControllers: [UITableViewController] = {
         return [self.newPageTableViewController(),
                 self.newPageTableViewController(),
