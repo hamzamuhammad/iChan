@@ -41,26 +41,26 @@ class LaunchViewController: UIViewController {
             board = userBoard
         }
         
-        // sort based off of date
-        let query = ref.child("\(board)").queryOrdered(byChild: "date")
-        
-        // get the newest 5 posts for a certain board
-        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            // go through each post
-            let enumerator = snapshot.children
-            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-                
-                // create the post and add to the page
-                let post = Post(snapshot: rest)
-                self.page.addPost(originalPost: post)
-            }
-            
-            // after everything is fully loaded, call the segue
-            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+//        // sort based off of date
+//        let query = ref.child("pages").child(board).queryOrdered(byChild: "date")
+//        
+//        // get the newest 5 posts for a certain board
+//        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
+//            
+//            // go through each post
+//            let enumerator = snapshot.children
+//            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+//                
+//                // create the post and add to the page
+//                let post = Post(snapshot: rest)
+//                self.page.addPost(originalPost: post)
+//            }
+//            
+//            // after everything is fully loaded, call the segue
+//            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
         
         // after everything is fully loaded, call the segue
         performSegue(withIdentifier: "LaunchSegue", sender: self)
@@ -71,7 +71,6 @@ class LaunchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -80,9 +79,9 @@ class LaunchViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "LaunchSegue" {
             // send our page object to the main page view
-            let pageViewController = segue.destination as! PageViewController
+            let navigationViewController = segue.destination as! UINavigationController
+            let pageViewController = navigationViewController.topViewController as! PageViewController
             pageViewController.currentPage = page
         }
     }
-
 }

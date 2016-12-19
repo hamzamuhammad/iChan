@@ -70,7 +70,7 @@ class Post: NSObject {
         let storage = FIRStorage.storage()
         
         // Create a storage reference from our storage service
-        let storageRef = storage.reference(forURL: "your_firebase_storage_bucket")
+        let storageRef = storage.reference(forURL: "gs://ichan-ec477.appspot.com")
         
         _imageName = snapshotValue["image"] as! String
         // Create a reference to the file you want to download
