@@ -16,7 +16,7 @@ class LaunchViewController: UIViewController {
     
     let ref = FIRDatabase.database().reference()
     
-    private var page: Page!
+    private var page: Page = Page()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,26 +41,27 @@ class LaunchViewController: UIViewController {
             board = userBoard
         }
         
-//        // sort based off of date
-//        let query = ref.child("pages").child(board).queryOrdered(byChild: "date")
-//        
-//        // get the newest 5 posts for a certain board
-//        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
-//            
-//            // go through each post
-//            let enumerator = snapshot.children
-//            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-//                
-//                // create the post and add to the page
-//                let post = Post(snapshot: rest)
-//                self.page.addPost(originalPost: post)
-//            }
-//            
-//            // after everything is fully loaded, call the segue
-//            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
+        board = "tv"
+        // sort based off of date
+        let query = ref.child("pages").child(board).queryOrdered(byChild: "date")
+        
+        // get the newest 5 posts for a certain board
+        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // go through each post
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                
+                // create the post and add to the page
+                let post = Post(snapshot: rest)
+                self.page.addPost(originalPost: post)
+            }
+            print("get here")
+            // after everything is fully loaded, call the segue
+            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
         // after everything is fully loaded, call the segue
         performSegue(withIdentifier: "LaunchSegue", sender: self)

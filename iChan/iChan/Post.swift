@@ -15,10 +15,10 @@ class Post: NSObject {
     
     private var _title: String!
     private var _date: Date!
-    private var _userID: Int!
+    private var _userID: String!
     private var _text: String!
     private var _image: UIImage?
-    private var _threadID: Int!
+    private var _threadID: String!
     
     private var _imageName: String!
     
@@ -30,7 +30,7 @@ class Post: NSObject {
         return _date
     }
     
-    var userID: Int {
+    var userID: String {
         return _userID
     }
     
@@ -42,11 +42,11 @@ class Post: NSObject {
         return _image!
     }
     
-    var threadID: Int {
+    var threadID: String {
         return _threadID
     }
     
-    init(title: String, date: Date, userID: Int, text: String, image: UIImage, threadID: Int) {
+    init(title: String, date: Date, userID: String, text: String, image: UIImage, threadID: String) {
         _title = title
         _date = date
         _userID = userID
@@ -63,7 +63,7 @@ class Post: NSObject {
         dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
         _date = dateFormatter.date(from: snapshotValue["date"] as! String)
         
-        _userID = snapshotValue["userID"] as! Int
+        _userID = snapshotValue["userID"] as! String
         _text = snapshotValue["text"] as! String
         
         // Get a reference to the storage service using the default Firebase App
@@ -89,7 +89,7 @@ class Post: NSObject {
         }
         _image = tempImage
         
-        _threadID = snapshotValue["threadID"] as! Int
+        _threadID = snapshotValue["threadID"] as! String
     }
     
     func toAnyObject() -> Any {

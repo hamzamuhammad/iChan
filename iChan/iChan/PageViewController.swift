@@ -56,7 +56,7 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
                                animated: true,
                                completion: nil)
         }
-        
+        print("got here with: \(currentPage.threadPreviews.count)")
     }
 
     override func didReceiveMemoryWarning() {

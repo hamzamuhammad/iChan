@@ -61,7 +61,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         
         board = "tv"
         // set this as a new 'thread'
-        self.ref.child("pages").child(board).setValue(dict)
+        self.ref.child("pages").child(board).child(userID).setValue(dict)
         
         // have to upload image as well
         
