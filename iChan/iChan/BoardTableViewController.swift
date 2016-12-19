@@ -8,9 +8,19 @@
 
 import UIKit
 
+protocol BoardTableViewControllerDelegate: class {
+    func didFinishTask(sender: BoardTableViewController, newBoard: String)
+}
+
 class BoardTableViewController: UITableViewController {
     
+    private var boards: [String] = ["tv", "fit", "pol"]
+    private var boardDescription: [String] = ["Television", "Fitness", "Politics"]
+    private var currentBoard: String = ""
     
+    private var selectedIndex: IndexPath!
+    
+    weak var boardTableViewControllerDelegate: BoardTableViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +30,13 @@ class BoardTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        let defaults = UserDefaults.standard
+        
+        // set the current board
+        if let userBoard = defaults.string(forKey: "board") {
+            currentBoard = userBoard
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,26 +45,52 @@ class BoardTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // get the currently saved board
+        let defaults = UserDefaults.standard
+        
+        // we do this whenever the board button is pressed
+        defaults.set(boards[indexPath.row], forKey: "board")
+        currentBoard = boards[indexPath.row]
+        
+        // put checkmark by selected value
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .checkmark
+            // deselect previous cell
+            if let oldCell = tableView.cellForRow(at: selectedIndex) {
+                oldCell.accessoryType = .none
+            }
+            selectedIndex = indexPath
+        }
+        
+        let newBoard = "/\(boards[indexPath.row])/ - \(boardDescription[indexPath.row])"
+        boardTableViewControllerDelegate?.didFinishTask(sender: self, newBoard: newBoard)
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return boards.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "boardCell", for: indexPath)
 
         // Configure the cell...
+        cell.textLabel?.text = "/\(boards[indexPath.row])/ - \(boardDescription[indexPath.row])"
+        
+        if currentBoard == boards[indexPath.row] {
+            cell.accessoryType = .checkmark
+            selectedIndex = indexPath
+        }
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

@@ -59,7 +59,6 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
             board = userBoard
         }
         
-        board = "tv"
         // set this as a new 'thread'
         self.ref.child("pages").child(board).child(userID).setValue(dict)
         

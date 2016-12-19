@@ -8,9 +8,10 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPopoverPresentationControllerDelegate {
+class PageViewController: UIPageViewController, UIPopoverPresentationControllerDelegate, BoardTableViewControllerDelegate {
     
     var currentPage: Page!
+    private var boardDict: [String : String] = ["tv" : "Television", "fit" : "Fitness", "pol" : "Politics"]
     
     private(set) lazy var orderedViewControllers: [UITableViewController] = {
         return [self.newPageTableViewController(),
@@ -26,7 +27,8 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
     @IBOutlet var boardButton: UIBarButtonItem!
     
     @IBAction func changeBoard(_ sender: Any) {
-        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "BoardTableViewController") as! UITableViewController
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "BoardTableViewController") as! BoardTableViewController
+        popoverContent.boardTableViewControllerDelegate = self
         popoverContent.modalPresentationStyle = .popover
         
         if let popover = popoverContent.popoverPresentationController {
@@ -38,6 +40,11 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         }
         
         self.present(popoverContent, animated: true, completion: nil)
+    }
+    
+    func didFinishTask(sender: BoardTableViewController, newBoard: String) {
+        // do stuff like updating the UI
+        boardButton.title = newBoard
     }
     
    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
@@ -55,6 +62,10 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
                                direction: .forward,
                                animated: true,
                                completion: nil)
+        }
+        let defaults = UserDefaults.standard
+        if let userBoard = defaults.string(forKey: "board") {
+            boardButton.title = "/\(userBoard)/ - \(boardDict[userBoard]!)"
         }
         print("got here with: \(currentPage.threadPreviews.count)")
     }

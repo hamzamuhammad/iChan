@@ -41,7 +41,6 @@ class LaunchViewController: UIViewController {
             board = userBoard
         }
         
-        board = "tv"
         // sort based off of date
         let query = ref.child("pages").child(board).queryOrdered(byChild: "date")
         
@@ -56,15 +55,13 @@ class LaunchViewController: UIViewController {
                 let post = Post(snapshot: rest)
                 self.page.addPost(originalPost: post)
             }
-            print("get here")
             // after everything is fully loaded, call the segue
             self.performSegue(withIdentifier: "LaunchSegue", sender: self)
         }) { (error) in
             print(error.localizedDescription)
+            // after everything is fully loaded, call the segue
+            self.performSegue(withIdentifier: "LaunchSegue", sender: self)
         }
-        
-        // after everything is fully loaded, call the segue
-        performSegue(withIdentifier: "LaunchSegue", sender: self)
     }
 
     override func didReceiveMemoryWarning() {
