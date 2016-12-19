@@ -9,6 +9,8 @@
 import UIKit
 
 class PageTableViewController: UITableViewController {
+    
+    var page: Page!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,8 @@ class PageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +33,31 @@ class PageTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return page.threadPreviews.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ThreadCell", for: indexPath) as! ThreadTableViewCell
 
         // Configure the cell...
+        let post = page.threadPreviews[indexPath.row]
+        cell.titleLabel.text = post.title
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
+        cell.dateLabel.text = dateFormatter.string(from: post.date)
+        
+        cell.userIDLabel.text = post.userID
+        cell.postTextLabel.text = post.text
+        cell.postImageView.image = post.image
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

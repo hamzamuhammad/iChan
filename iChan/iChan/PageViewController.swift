@@ -13,15 +13,15 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
     var currentPage: Page!
     private var boardDict: [String : String] = ["tv" : "Television", "fit" : "Fitness", "pol" : "Politics"]
     
-    private(set) lazy var orderedViewControllers: [UITableViewController] = {
+    private(set) lazy var orderedViewControllers: [PageTableViewController] = {
         return [self.newPageTableViewController(),
                 self.newPageTableViewController(),
                 self.newPageTableViewController()]
-    }()
+    }() 
     
-    private func newPageTableViewController() -> UITableViewController {
+    private func newPageTableViewController() -> PageTableViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewController(withIdentifier: "PageTableViewController") as! UITableViewController
+            instantiateViewController(withIdentifier: "PageTableViewController") as! PageTableViewController
     }
     
     @IBOutlet var boardButton: UIBarButtonItem!
@@ -67,7 +67,13 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         if let userBoard = defaults.string(forKey: "board") {
             boardButton.title = "/\(userBoard)/ - \(boardDict[userBoard]!)"
         }
+        
         print("got here with: \(currentPage.threadPreviews.count)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("huh?")
+        orderedViewControllers[0].page = currentPage
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,7 +100,7 @@ extension PageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! UITableViewController) else {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! PageTableViewController) else {
             return nil
         }
         
@@ -113,7 +119,7 @@ extension PageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! UITableViewController) else {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController as! PageTableViewController) else {
             return nil
         }
         
