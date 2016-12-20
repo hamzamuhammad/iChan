@@ -15,6 +15,7 @@
 		1F7165191E062C4D0001A9EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */; };
 		1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651A1E063D350001A9EC /* PageViewController.swift */; };
 		1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F71651C1E063F230001A9EC /* PageTableViewController.swift */; };
+		1F72D0961E095068007FEC1F /* ThreadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */; };
 		1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */; };
 		1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */; };
 		1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */; };
@@ -37,6 +38,7 @@
 		1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F71651A1E063D350001A9EC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		1F71651C1E063F230001A9EC /* PageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewController.swift; sourceTree = "<group>"; };
+		1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTableViewController.swift; sourceTree = "<group>"; };
 		1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewThreadViewController.swift; sourceTree = "<group>"; };
 		1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedEqualizerView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */,
 				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
 				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
+				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
@@ -255,6 +258,7 @@
 				1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */,
 				1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */,
 				1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */,
+				1F72D0961E095068007FEC1F /* ThreadTableViewController.swift in Sources */,
 				1F7BD6E01E074E940083984D /* Post.swift in Sources */,
 				1F7BD6E41E0809740083984D /* ThreadTableViewCell.swift in Sources */,
 			);

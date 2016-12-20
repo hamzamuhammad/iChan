@@ -10,13 +10,5 @@ import UIKit
 
 class Thread: NSObject {
     
-    private var _posts: [Post] = []
-    
-    var posts: [Post] {
-        return _posts
-    }
-    
-    func addPost(post: Post) {
-        _posts.append(post)
-    }
+    var posts: [Post] = []
 }

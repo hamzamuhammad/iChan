@@ -31,21 +31,24 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         present(imagePicker, animated: true, completion: nil)
     }
     
-   
     @IBAction func postThread(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
         let date = dateFormatter.string(from: Date())
         let userID = NSUUID().uuidString
         let threadID = NSUUID().uuidString
+        let threadLen = 1
+        let isEmpty = 0
         let dict = [
             "title": titleField.text!,
             "date": date,
             "userID": userID,
             "text": textField.text!,
             "image": userID,
-            "threadID": threadID
-        ]
+            "threadID": threadID,
+            "threadLen": threadLen,
+            "isEmpty": isEmpty
+        ] as [String : Any]
         
         // get the currently saved board
         let defaults = UserDefaults.standard
@@ -61,6 +64,9 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         
         // set this as a new 'thread'
         self.ref.child("pages").child(board).child(userID).setValue(dict)
+        
+        // also add this to the actual thread object (as the first post)
+        self.ref.child(threadID).child(userID).setValue(dict)
         
         // have to upload image as well
         

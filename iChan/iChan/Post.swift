@@ -18,8 +18,9 @@ class Post: NSObject {
     private var _text: String!
     var image: UIImage?
     private var _threadID: String!
-    
+    private var _threadLen: Int!
     private var _imageName: String!
+    var isEmpty: Int!
     
     var title: String {
         return _title
@@ -41,13 +42,19 @@ class Post: NSObject {
         return _threadID
     }
     
-    init(title: String, date: Date, userID: String, text: String, image: UIImage, threadID: String) {
-        _title = title
-        _date = date
-        _userID = userID
-        _text = text
-        self.image = image
-        _threadID = threadID
+    var threadLen: Int {
+        return _threadLen
+    }
+    
+    override init() {
+        _title = ""
+        _date = Date()
+        _userID = ""
+        _text = ""
+        _threadID = ""
+        _threadLen = 0
+        _imageName = ""
+        isEmpty = 1
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -61,6 +68,8 @@ class Post: NSObject {
         _userID = snapshotValue["userID"] as! String
         _text = snapshotValue["text"] as! String
         _threadID = snapshotValue["threadID"] as! String
+        _threadLen = snapshotValue["threadLen"] as! Int
+        isEmpty = snapshotValue["isEmpty"] as! Int
     }
     
     func toAnyObject() -> Any {
@@ -70,7 +79,9 @@ class Post: NSObject {
             "userID": _userID,
             "text": _text,
             "image": _imageName,
-            "threadID": _threadID
+            "threadID": _threadID,
+            "threadLen": _threadLen,
+            "isEmpty": isEmpty
         ]
     }
 }

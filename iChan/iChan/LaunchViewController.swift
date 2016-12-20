@@ -31,6 +31,7 @@ class LaunchViewController: UIViewController, LoadDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         let view = AnimatedEqualizerView(containerView: animationContainer)
         self.animationContainer.backgroundColor = UIColor.clear
         self.animationContainer.addSubview(view)
