@@ -25,7 +25,7 @@ class LaunchViewController: UIViewController, LoadDelegate {
     // Create a storage reference from our storage service
     let storageRef = FIRStorage.storage().reference(forURL: "gs://ichan-ec477.appspot.com")
     
-    private var page: Page = Page()
+    var posts: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,9 @@ class LaunchViewController: UIViewController, LoadDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // HAVE TO MAKE THIS INTO A METHOD THAT GETS ALL THE PAGES
+        
+        
         // get the currently saved board
         let defaults = UserDefaults.standard
 
@@ -54,7 +57,7 @@ class LaunchViewController: UIViewController, LoadDelegate {
         let query = ref.child("pages").child(board).queryOrdered(byChild: "date")
         
         // get the newest 5 posts for a certain board
-        query.queryLimited(toFirst: 5).observeSingleEvent(of: .value, with: { (snapshot) in
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
             
             // go through each post
             let enumerator = snapshot.children
@@ -62,12 +65,16 @@ class LaunchViewController: UIViewController, LoadDelegate {
                 
                 // create the post and add to the page
                 let post = Post(snapshot: rest)
-                self.page.addPost(originalPost: post)
+                self.posts.append(post)
             }
             
             // after everything is fully loaded, notify delegate
-            self.didFetchPosts()
-            //self.performSegue(withIdentifier: "LaunchSegue", sender: self)
+            if self.posts.count > 0 {
+                self.didFetchPosts()
+            }
+            else {
+                self.performSegue(withIdentifier: "LaunchSegue", sender: self)
+            }
         }) { (error) in
             print(error.localizedDescription)
             // after everything is fully loaded, call the segue
@@ -81,23 +88,24 @@ class LaunchViewController: UIViewController, LoadDelegate {
     }
     
     func didFetchImage(index: Int) {
-        if index + 1 < page.threadPreviews.count {
+        if index + 1 < posts.count {
             downloadImage(index: index + 1)
         }
-        else if index + 1 == page.threadPreviews.count {
+        else if index + 1 == posts.count {
+            // this is where we go to the main app, so do the work in prepare for segue:
             self.performSegue(withIdentifier: "LaunchSegue", sender: self)
             print("GOT HERE TWICE")
         }
     }
     
     func downloadImage(index: Int) {
-        let post = page.threadPreviews[index]
+        let post = posts[index]
         
         // Create a reference to the file you want to download
         let imageRef = storageRef.child("images/\(post.userID).jpg")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        imageRef.data(withMaxSize: 4 * 1024 * 1024) { data, error in
+        imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
                 // Uh-oh, an error occurred!
             } else {
@@ -106,6 +114,33 @@ class LaunchViewController: UIViewController, LoadDelegate {
             }
             self.didFetchImage(index: index)
         }
+    }
+    
+    func generatePages() -> [Page] {
+        var numPages: Int = 0
+        
+        if posts.count % 5 == 0 {
+            numPages = posts.count / 5
+        }
+        else {
+            numPages = posts.count / 5 + 1
+        }
+        
+        var pages: [Page] = []
+        
+        var index: Int = posts.count - 1
+        for i in 0..<numPages {
+            pages.append(Page())
+            
+            var lim: Int = 5
+            // add to a page
+            while index >= 0 && lim > 0 {
+                pages[i].threadPreviews.append(posts[index])
+                index = index - 1
+                lim = lim - 1
+            }
+        }
+        return pages
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,7 +158,7 @@ class LaunchViewController: UIViewController, LoadDelegate {
             // send our page object to the main page view
             let navigationViewController = segue.destination as! UINavigationController
             let pageViewController = navigationViewController.topViewController as! PageViewController
-            pageViewController.currentPage = page
+            pageViewController.pages = generatePages()
         }
     }
 }

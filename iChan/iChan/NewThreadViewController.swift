@@ -65,7 +65,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         // have to upload image as well
         
         // Data in memory
-        let data = UIImageJPEGRepresentation(imageView.image!, 0.8)!
+        let data = UIImageJPEGRepresentation(imageView.image!, 0.0)!
         
         // Create a reference to the file you want to upload
         let imgRef = storageRef.child("images/\(userID).jpg")

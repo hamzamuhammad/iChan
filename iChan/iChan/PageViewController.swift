@@ -10,14 +10,11 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPopoverPresentationControllerDelegate, BoardTableViewControllerDelegate {
     
-    var currentPage: Page!
+    var pages: [Page] = []
+    
     private var boardDict: [String : String] = ["tv" : "Television", "fit" : "Fitness", "pol" : "Politics"]
     
-    private(set) lazy var orderedViewControllers: [PageTableViewController] = {
-        return [self.newPageTableViewController(),
-                self.newPageTableViewController(),
-                self.newPageTableViewController()]
-    }() 
+    var orderedViewControllers: [PageTableViewController] = []
     
     private func newPageTableViewController() -> PageTableViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
@@ -57,6 +54,12 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         // Do any additional setup after loading the view.
         dataSource = self
         
+        // get required # of pages
+        for i in 0..<pages.count {
+            orderedViewControllers.append(newPageTableViewController())
+            orderedViewControllers[i].page = pages[i]
+        }
+        
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
                                direction: .forward,
@@ -68,12 +71,7 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
             boardButton.title = "/\(userBoard)/ - \(boardDict[userBoard]!)"
         }
         
-        print("got here with: \(currentPage.threadPreviews.count)")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("huh?")
-        orderedViewControllers[0].page = currentPage
+        print("got here with: \(pages.count)")
     }
 
     override func didReceiveMemoryWarning() {
