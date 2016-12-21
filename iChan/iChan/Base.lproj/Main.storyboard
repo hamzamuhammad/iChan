@@ -163,7 +163,11 @@
                                     <segue destination="tr2-yx-19c" kind="show" id="dLl-T8-kxI"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Refresh" id="R9M-MH-6Bj"/>
+                            <barButtonItem title="Refresh" id="R9M-MH-6Bj">
+                                <connections>
+                                    <action selector="refreshCurrentBoard:" destination="uDt-c9-xeE" id="jRW-N1-SMr"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="         " id="7ec-Vn-Jmd"/>
                             <barButtonItem title="iChan" id="YdU-hN-Oxh"/>
                         </rightBarButtonItems>
