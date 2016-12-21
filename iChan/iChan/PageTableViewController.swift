@@ -106,6 +106,9 @@ class PageTableViewController: UITableViewController {
                 let threadTableViewController = segue.destination as! ThreadTableViewController
                 threadTableViewController.threadID = page.threadPreviews[row].threadID
                 threadTableViewController.threadLen = page.threadPreviews[row].threadLen
+                threadTableViewController.currentPageView = self
+                threadTableViewController.postIndex = row
+                threadTableViewController.mainPostID = page.threadPreviews[row].userID
             }
         }
     }

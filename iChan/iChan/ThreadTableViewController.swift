@@ -12,11 +12,11 @@ import FirebaseDatabase
 import FirebaseStorage
 
 protocol ThreadLoadDelegate {
-    func didFetchPost(index: Int, cell: ThreadTableViewCell)
-    func didFetchImage(index: Int, cell: ThreadTableViewCell)
+    func didFetchPost(index: Int)
+    func didFetchImage(index: Int)
 }
 
-class ThreadTableViewController: UITableViewController, ThreadLoadDelegate {
+class ThreadTableViewController: UITableViewController, ThreadLoadDelegate, UIPopoverPresentationControllerDelegate {
     
     let ref = FIRDatabase.database().reference()
     
@@ -26,7 +26,39 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate {
     var thread: Thread = Thread()
     var threadID: String!
     var threadLen: Int!
-
+    var mainPostID: String!
+    
+    var currentPageView: PageTableViewController!
+    var postIndex: Int!
+    
+    @IBOutlet weak var replyButton: UIBarButtonItem!
+    
+    @IBAction func newPost(_ sender: Any) {
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
+        // this should be used to call update maybe?
+        //popoverContent.boardTableViewControllerDelegate = self
+        popoverContent.threadLen = self.threadLen
+        popoverContent.threadID = self.threadID
+        popoverContent.mainPostID = self.mainPostID
+        popoverContent.currentPageView = self.currentPageView
+        popoverContent.postIndex = self.postIndex
+        popoverContent.modalPresentationStyle = .popover
+        
+        if let popover = popoverContent.popoverPresentationController {
+            
+            popoverContent.preferredContentSize = CGSize(width: 270, height: 300)
+            
+            popover.barButtonItem = replyButton
+            popover.delegate = self
+        }
+        
+        self.present(popoverContent, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,6 +75,37 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate {
         
         // here, we start to lazy load the entire thread
         loadThread()
+        
+        // also, listen for new changes
+        let postRef = FIRDatabase.database().reference().child(threadID).queryOrdered(byChild: "date")
+        _ = postRef.observe(FIRDataEventType.value, with: { (snapshot) in
+            
+            print("am i in here?")
+            var tempThread: [Post] = []
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                let post = Post(snapshot: rest)
+                tempThread.append(post)
+            }
+            
+            tempThread.reverse()
+            let start = 0
+            let end = tempThread.count - self.thread.posts.count
+            print("start: \(start) end: \(end)")
+            if end > start {
+                for i in start..<end {
+                    self.thread.posts.append(tempThread[i])
+                    self.didFetchPost(index: self.thread.posts.count - 1)
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: [
+                        IndexPath(item: self.thread.posts.count - 1, section: 0)
+                        ], with: .automatic)
+                    self.tableView.endUpdates()
+                    let indexPath : IndexPath = IndexPath(item: self.thread.posts.count - 1, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+                }
+            }
+        })
     }
     
     func loadThread() {
@@ -57,41 +120,32 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate {
             var index: Int = 0
             let enumerator = snapshot.children
             while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-                
+
                 // create the post and add to the page
                 let post = Post(snapshot: rest)
                 self.thread.posts[index] = post
                 
-                // have to update cell at specified index
-                let indexPath : IndexPath = IndexPath(item: index, section: 0)
-                let cell = self.tableView.cellForRow(at: indexPath) as! ThreadTableViewCell
-                
-                cell.titleLabel.text = post.title
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
-                cell.dateLabel.text = dateFormatter.string(from: post.date)
-                
-                cell.userIDLabel.text = post.userID
-                cell.postTextLabel.text = post.text
-                
                 // since we cant get the image yet, we have to download it!
-                self.didFetchPost(index: index, cell: cell)
+                self.didFetchPost(index: index)
                 
+                let indexPath : IndexPath = IndexPath(item: index, section: 0)
+                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+
                 index = index + 1
             }
+            // should call update method after this
         }) { (error) in
             print(error.localizedDescription)
             // after everything is fully loaded, call the segue
         }
     }
     
-    func didFetchPost(index: Int, cell: ThreadTableViewCell) {
+    func didFetchPost(index: Int) {
         // grab the image just for the specific index
-        downloadImage(index: index, cell: cell)
+        downloadImage(index: index)
     }
     
-    func downloadImage(index: Int, cell: ThreadTableViewCell) {
+    func downloadImage(index: Int) {
         let post = thread.posts[index]
         
         // Create a reference to the file you want to download
@@ -106,12 +160,11 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate {
                 print("we in here")
                 post.image = UIImage(data: data!)!
             }
-            self.didFetchImage(index: index, cell: cell)
+            self.didFetchImage(index: index)
         }
     }
     
-    func didFetchImage(index: Int, cell: ThreadTableViewCell) {
-        cell.postImageView.image = thread.posts[index].image
+    func didFetchImage(index: Int) {
         thread.posts[index].isEmpty = 0
     }
 

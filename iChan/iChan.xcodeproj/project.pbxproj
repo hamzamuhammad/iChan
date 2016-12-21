@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0045D71E0A06DD00B4F350 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0045D61E0A06DD00B4F350 /* PostViewController.swift */; };
 		1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7165031E062BD10001A9EC /* AppDelegate.swift */; };
 		1F7165091E062BD10001A9EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7165071E062BD10001A9EC /* Main.storyboard */; };
 		1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F0045D61E0A06DD00B4F350 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		1F7165001E062BD10001A9EC /* iChan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7165031E062BD10001A9EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F7165081E062BD10001A9EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
 				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
 				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
+				1F0045D61E0A06DD00B4F350 /* PostViewController.swift */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
@@ -250,6 +253,7 @@
 			files = (
 				1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */,
 				1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */,
+				1F0045D71E0A06DD00B4F350 /* PostViewController.swift in Sources */,
 				1F7BD6E21E074FDF0083984D /* Thread.swift in Sources */,
 				1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */,
 				1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */,
