@@ -19,7 +19,6 @@ class Post: NSObject {
     var image: UIImage?
     private var _threadID: String!
     var threadLen: Int!
-    private var _imageName: String!
     var isEmpty: Int!
     
     var title: String {
@@ -49,14 +48,12 @@ class Post: NSObject {
         _text = ""
         _threadID = ""
         threadLen = 0
-        _imageName = ""
         isEmpty = 1
     }
     
     init(snapshot: FIRDataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         
-        print("zzztop")
         _title = snapshotValue["title"] as! String
         
         let dateFormatter = DateFormatter()
@@ -76,7 +73,6 @@ class Post: NSObject {
             "date": _date,
             "userID": _userID,
             "text": _text,
-            "image": _imageName,
             "threadID": _threadID,
             "threadLen": threadLen,
             "isEmpty": isEmpty

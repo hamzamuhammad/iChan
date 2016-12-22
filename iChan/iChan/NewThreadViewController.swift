@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PostDelegate {
     
     let ref = FIRDatabase.database().reference()
     
@@ -19,6 +19,8 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
     let storageRef = FIRStorage.storage().reference(forURL: "gs://ichan-ec477.appspot.com")
     
     let imagePicker = UIImagePickerController()
+    
+    var postManager: PostManager?
     
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textField: UITextView!
@@ -32,63 +34,22 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     @IBAction func postThread(_ sender: Any) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
-        let date = dateFormatter.string(from: Date())
-        let userID = NSUUID().uuidString
-        let threadID = NSUUID().uuidString
-        let threadLen = 1
-        let isEmpty = 0
-        let dict = [
-            "title": titleField.text!,
-            "date": date,
-            "userID": userID,
-            "text": textField.text!,
-            "image": userID,
-            "threadID": threadID,
-            "threadLen": threadLen,
-            "isEmpty": isEmpty
-        ] as [String : Any]
-        
-        // get the currently saved board
-        let defaults = UserDefaults.standard
-        
-        // we do this whenever the board button is pressed
-        // defaults.set("theGreatestName", forKey: "username")
-        var board: String = ""
-        
-        // grab the user's key
-        if let userBoard = defaults.string(forKey: "board") {
-            board = userBoard
-        }
-        
-        // set this as a new 'thread'
-        self.ref.child("pages").child(board).child(userID).setValue(dict)
-        
-        // also add this to the actual thread object (as the first post)
-        self.ref.child(threadID).child(userID).setValue(dict)
-        
-        // have to upload image as well
-        
-        // Data in memory
-        let data = UIImageJPEGRepresentation(imageView.image!, 0.0)!
-        
-        // Create a reference to the file you want to upload
-        let imgRef = storageRef.child("images/\(userID).jpg")
-        
-        // Upload the file to the path "images/userID.jpg"
-        _ = imgRef.put(data, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-            }
-            // Metadata contains file metadata such as size, content-type, and download URL.
-            _ = metadata.downloadURL
-        }
-        
+        postManager!.createThread(title: titleField.text!, text: textField.text!, image: imageView.image)
+    }
+    
+    func objectDidPost() {
         // if all goes well, display an alert to user
         let alertController = UIAlertController(title: "Post Successful!", message: "Press OK to dismiss", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func objectFailedPost() {
+        // no image, display error
+        let alertController = UIAlertController(title: "Failed to Post...", message: "Please upload an image!", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(defaultAction)
         
         present(alertController, animated: true, completion: nil)
@@ -97,6 +58,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.contentMode = .scaleAspectFit
             imageView.image = pickedImage
@@ -117,6 +79,8 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        postManager = PostManager()
+        postManager!.postDelegate = self
         imagePicker.delegate = self
         self.title = "New Thread"
     }
@@ -126,7 +90,6 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -136,5 +99,4 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         // Pass the selected object to the new view controller.
     }
     */
-
 }

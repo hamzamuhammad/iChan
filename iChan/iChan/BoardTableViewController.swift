@@ -14,11 +14,11 @@ protocol BoardTableViewControllerDelegate: class {
 
 class BoardTableViewController: UITableViewController {
     
-    private var boards: [String] = ["tv", "fit", "pol"]
-    private var boardDescription: [String] = ["Television", "Fitness", "Politics"]
-    private var currentBoard: String = ""
+    var boards: [String] = ["tv", "fit", "pol"]
+    var boardDescription: [String] = ["Television", "Fitness", "Politics"]
+    var currentBoard: String = ""
     
-    private var selectedIndex: IndexPath!
+    var selectedIndex: IndexPath?
     
     weak var boardTableViewControllerDelegate: BoardTableViewControllerDelegate?
 
@@ -58,7 +58,7 @@ class BoardTableViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
             // deselect previous cell
-            if let oldCell = tableView.cellForRow(at: selectedIndex) {
+            if let oldCell = tableView.cellForRow(at: selectedIndex!) {
                 oldCell.accessoryType = .none
             }
             selectedIndex = indexPath

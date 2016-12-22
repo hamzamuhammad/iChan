@@ -7,41 +7,17 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseDatabase
-import FirebaseStorage
 
-protocol ThreadLoadDelegate {
-    func didFetchPost(index: Int)
-    func didFetchImage(index: Int)
-}
-
-class ThreadTableViewController: UITableViewController, ThreadLoadDelegate, UIPopoverPresentationControllerDelegate {
+class ThreadTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate, PostLoadDelegate {
     
-    let ref = FIRDatabase.database().reference()
-    
-    // Create a storage reference from our storage service
-    let storageRef = FIRStorage.storage().reference(forURL: "gs://ichan-ec477.appspot.com")
-    
-    var thread: Thread = Thread()
-    var threadID: String!
-    var threadLen: Int!
-    var mainPostID: String!
-    
-    var currentPageView: PageTableViewController!
-    var postIndex: Int!
+    var thread: Thread?
     
     @IBOutlet weak var replyButton: UIBarButtonItem!
     
     @IBAction func newPost(_ sender: Any) {
         let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         // this should be used to call update maybe?
-        //popoverContent.boardTableViewControllerDelegate = self
-        popoverContent.threadLen = self.threadLen
-        popoverContent.threadID = self.threadID
-        popoverContent.mainPostID = self.mainPostID
-        popoverContent.currentPageView = self.currentPageView
-        popoverContent.postIndex = self.postIndex
+        popoverContent.thread = self.thread
         popoverContent.modalPresentationStyle = .popover
         
         if let popover = popoverContent.popoverPresentationController {
@@ -67,105 +43,38 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate, UIPo
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        thread!.postLoadDelegate = self
         
         // first add all the dummy values so the tableview is functional
-        for _ in 1...threadLen {
-            thread.posts.append(Post())
+        for _ in 1...thread!.len {
+            thread!.posts!.append(Post())
         }
         
         // here, we start to lazy load the entire thread
-        loadThread()
+        thread!.lazyLoad()
         
         // also, listen for new changes
-        let postRef = FIRDatabase.database().reference().child(threadID).queryOrdered(byChild: "date")
-        _ = postRef.observe(FIRDataEventType.value, with: { (snapshot) in
-            
-            print("am i in here?")
-            var tempThread: [Post] = []
-            let enumerator = snapshot.children
-            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-                let post = Post(snapshot: rest)
-                tempThread.append(post)
-            }
-            
-            tempThread.reverse()
-            let start = 0
-            let end = tempThread.count - self.thread.posts.count
-            print("start: \(start) end: \(end)")
-            if end > start {
-                for i in start..<end {
-                    self.thread.posts.append(tempThread[i])
-                    self.didFetchPost(index: self.thread.posts.count - 1)
-                    self.tableView.beginUpdates()
-                    self.tableView.insertRows(at: [
-                        IndexPath(item: self.thread.posts.count - 1, section: 0)
-                        ], with: .automatic)
-                    self.tableView.endUpdates()
-                    let indexPath : IndexPath = IndexPath(item: self.thread.posts.count - 1, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-                }
-            }
-        })
+        thread!.updateThread()
     }
     
-    func loadThread() {
-        
-        // sort based off of date
-        let query = ref.child(threadID).queryOrdered(byChild: "date")
-        
-        // get all posts
-        query.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            // go through each post
-            var index: Int = 0
-            let enumerator = snapshot.children
-            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-
-                // create the post and add to the page
-                let post = Post(snapshot: rest)
-                self.thread.posts[index] = post
-                
-                // since we cant get the image yet, we have to download it!
-                self.didFetchPost(index: index)
-                
-                let indexPath : IndexPath = IndexPath(item: index, section: 0)
-                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-
-                index = index + 1
-            }
-            // should call update method after this
-        }) { (error) in
-            print(error.localizedDescription)
-            // after everything is fully loaded, call the segue
-        }
+    func reloadTable() {
+        self.tableView.beginUpdates()
+        self.tableView.insertRows(at: [
+            IndexPath(item: self.thread!.posts!.count - 1, section: 0)
+            ], with: .automatic)
+        self.tableView.endUpdates()
+        let indexPath : IndexPath = IndexPath(item: thread!.posts!.count - 1, section: 0)
+        self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
-    func didFetchPost(index: Int) {
-        // grab the image just for the specific index
-        downloadImage(index: index)
+    func didLoadPost(index: Int) {
+        let indexPath : IndexPath = IndexPath(item: index, section: 0)
+        self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
-    func downloadImage(index: Int) {
-        let post = thread.posts[index]
-        
-        // Create a reference to the file you want to download
-        let imageRef = storageRef.child("images/\(post.userID).jpg")
-        print("trying to get \(post.userID)")
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                // Uh-oh, an error occurred!
-            } else {
-                // Data for "images/island.jpg" is returned
-                print("we in here")
-                post.image = UIImage(data: data!)!
-            }
-            self.didFetchImage(index: index)
-        }
-    }
-    
-    func didFetchImage(index: Int) {
-        thread.posts[index].isEmpty = 0
+    func didLoadImage(index: Int) {
+        let indexPath : IndexPath = IndexPath(item: index, section: 0)
+        self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
 
     override func didReceiveMemoryWarning() {
@@ -182,18 +91,14 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate, UIPo
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return thread.posts.count
+        return thread!.posts!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThreadCell", for: indexPath) as! ThreadTableViewCell
         
         // Configure the cell...
-        let post = thread.posts[indexPath.row]
-        
-        if post.isEmpty == 1 {
-            return cell
-        }
+        let post = thread!.posts![indexPath.row]
         
         cell.titleLabel.text = post.title
         
@@ -203,6 +108,12 @@ class ThreadTableViewController: UITableViewController, ThreadLoadDelegate, UIPo
         
         cell.userIDLabel.text = post.userID
         cell.postTextLabel.text = post.text
+        
+        // if the image hasn't been loaded, don't try to put it there!
+        if post.isEmpty == 1 {
+            return cell
+        }
+        
         cell.postImageView.image = post.image
         
         return cell

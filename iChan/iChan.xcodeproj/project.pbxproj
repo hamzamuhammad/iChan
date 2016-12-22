@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1F0045D71E0A06DD00B4F350 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0045D61E0A06DD00B4F350 /* PostViewController.swift */; };
+		1F6DE1A61E0BB09B00A414BD /* EagarPageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DE1A51E0BB09B00A414BD /* EagarPageLoader.swift */; };
+		1F6DE1AA1E0BC01E00A414BD /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DE1A91E0BC01E00A414BD /* Page.swift */; };
+		1F6DE1AC1E0BC63B00A414BD /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DE1AB1E0BC63B00A414BD /* PostManager.swift */; };
 		1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7165031E062BD10001A9EC /* AppDelegate.swift */; };
 		1F7165091E062BD10001A9EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7165071E062BD10001A9EC /* Main.storyboard */; };
 		1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */; };
@@ -20,7 +23,6 @@
 		1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */; };
 		1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */; };
 		1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */; };
-		1F7BD6DE1E06C5B20083984D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DD1E06C5B20083984D /* Page.swift */; };
 		1F7BD6E01E074E940083984D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DF1E074E940083984D /* Post.swift */; };
 		1F7BD6E21E074FDF0083984D /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E11E074FDF0083984D /* Thread.swift */; };
 		1F7BD6E41E0809740083984D /* ThreadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */; };
@@ -30,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		1F0045D61E0A06DD00B4F350 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		1F6DE1A51E0BB09B00A414BD /* EagarPageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EagarPageLoader.swift; sourceTree = "<group>"; };
+		1F6DE1A91E0BC01E00A414BD /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		1F6DE1AB1E0BC63B00A414BD /* PostManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		1F7165001E062BD10001A9EC /* iChan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7165031E062BD10001A9EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F7165081E062BD10001A9EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -44,7 +49,6 @@
 		1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewThreadViewController.swift; sourceTree = "<group>"; };
 		1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedEqualizerView.swift; sourceTree = "<group>"; };
-		1F7BD6DD1E06C5B20083984D /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		1F7BD6DF1E074E940083984D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1F7BD6E11E074FDF0083984D /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTableViewCell.swift; sourceTree = "<group>"; };
@@ -66,6 +70,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F6DE1A71E0BBB5800A414BD /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
+				1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
+		1F6DE1A81E0BBF5700A414BD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1F71651A1E063D350001A9EC /* PageViewController.swift */,
+				1F71651C1E063F230001A9EC /* PageTableViewController.swift */,
+				1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */,
+				1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 		1F7164F71E062BD10001A9EC = {
 			isa = PBXGroup;
 			children = (
@@ -88,12 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				1F7165031E062BD10001A9EC /* AppDelegate.swift */,
-				1F71651A1E063D350001A9EC /* PageViewController.swift */,
-				1F71651C1E063F230001A9EC /* PageTableViewController.swift */,
-				1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */,
-				1F7BD6D71E0687EF0083984D /* NewThreadViewController.swift */,
-				1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */,
-				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
+				1F6DE1A71E0BBB5800A414BD /* Launch */,
+				1F6DE1A81E0BBF5700A414BD /* Home */,
+				1F6DE1A51E0BB09B00A414BD /* EagarPageLoader.swift */,
+				1F6DE1AB1E0BC63B00A414BD /* PostManager.swift */,
 				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
 				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
 				1F0045D61E0A06DD00B4F350 /* PostViewController.swift */,
@@ -103,8 +125,8 @@
 				1F7165121E062BD10001A9EC /* Info.plist */,
 				1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */,
 				1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */,
-				1F7BD6DD1E06C5B20083984D /* Page.swift */,
 				1F7BD6E11E074FDF0083984D /* Thread.swift */,
+				1F6DE1A91E0BC01E00A414BD /* Page.swift */,
 				1F7BD6DF1E074E940083984D /* Post.swift */,
 			);
 			path = iChan;
@@ -258,13 +280,15 @@
 				1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */,
 				1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */,
 				1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */,
-				1F7BD6DE1E06C5B20083984D /* Page.swift in Sources */,
 				1F7BD6DA1E06ADD30083984D /* LaunchViewController.swift in Sources */,
 				1F7BD6DC1E06B2E30083984D /* AnimatedEqualizerView.swift in Sources */,
 				1F7165041E062BD10001A9EC /* AppDelegate.swift in Sources */,
 				1F72D0961E095068007FEC1F /* ThreadTableViewController.swift in Sources */,
 				1F7BD6E01E074E940083984D /* Post.swift in Sources */,
+				1F6DE1A61E0BB09B00A414BD /* EagarPageLoader.swift in Sources */,
+				1F6DE1AC1E0BC63B00A414BD /* PostManager.swift in Sources */,
 				1F7BD6E41E0809740083984D /* ThreadTableViewCell.swift in Sources */,
+				1F6DE1AA1E0BC01E00A414BD /* Page.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

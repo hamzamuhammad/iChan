@@ -15,5 +15,4 @@ class ThreadTableViewCell: UITableViewCell {
     @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var postTextLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
-    
 }

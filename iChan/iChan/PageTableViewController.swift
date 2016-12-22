@@ -10,7 +10,7 @@ import UIKit
 
 class PageTableViewController: UITableViewController {
     
-    var page: Page!
+    var page: Page?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,7 @@ class PageTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
     }
@@ -38,14 +39,14 @@ class PageTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return page.threadPreviews.count
+        return page!.numPreviewThreads()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThreadCell", for: indexPath) as! ThreadTableViewCell
 
         // Configure the cell...
-        let post = page.threadPreviews[indexPath.row]
+        let post = page!.getPost(index: indexPath.row)
         cell.titleLabel.text = post.title
         
         let dateFormatter = DateFormatter()
@@ -104,11 +105,8 @@ class PageTableViewController: UITableViewController {
         if segue.identifier == "ThreadSegue" {
             if let row = tableView.indexPathForSelectedRow?.row {
                 let threadTableViewController = segue.destination as! ThreadTableViewController
-                threadTableViewController.threadID = page.threadPreviews[row].threadID
-                threadTableViewController.threadLen = page.threadPreviews[row].threadLen
-                threadTableViewController.currentPageView = self
-                threadTableViewController.postIndex = row
-                threadTableViewController.mainPostID = page.threadPreviews[row].userID
+                let newThread = Thread(pagePostIndex: row, threadID: page!.getPost(index: row).threadID, threadLen: page!.getPost(index: row).threadLen, mainPostID: page!.getPost(index: row).userID, currentPageView: self)
+                threadTableViewController.thread = newThread
             }
         }
     }

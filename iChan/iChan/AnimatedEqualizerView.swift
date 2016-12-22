@@ -6,7 +6,6 @@
 //  Copyright © 2016 Hamza Muhammad. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class AnimatedEqualizerView: UIView {
@@ -111,5 +110,4 @@ class AnimatedEqualizerView: UIView {
         let animationKey = "\(index)Animation"
         childLayers[index].add(animations[index], forKey: animationKey)
     }
-
 }

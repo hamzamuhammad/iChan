@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class PostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PostDelegate {
     
     let ref = FIRDatabase.database().reference()
     
@@ -20,13 +20,12 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let imagePicker = UIImagePickerController()
     
-    var threadLen: Int!
-    var threadID: String!
-    var mainPostID: String!
-    var chosenImage: UIImage!
+    var thread: Thread?
+    var chosenImage: UIImage?
     
-    var currentPageView: PageTableViewController!
-    var postIndex: Int!
+    var postManager: PostManager?
+    
+    var threadTableViewController: ThreadTableViewController?
 
     @IBOutlet var postText: UITextView!
     @IBOutlet var imageName: UILabel!
@@ -35,6 +34,8 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        postManager = PostManager()
+        postManager!.postDelegate = self
         imagePicker.delegate = self
         imageName.text = ""
     }
@@ -47,66 +48,22 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func submitPost(_ sender: Any) {
-        let title = ""
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE, dd MMM yyy hh:mm:ss +zzzz"
-        let date = dateFormatter.string(from: Date())
-        let userID = NSUUID().uuidString
-        let threadID = self.threadID
-        
-        // here, update the post count for main post
-        let threadPost = ["\(threadID!)/\(mainPostID!)/threadLen": threadLen + 1]
-        ref.updateChildValues(threadPost)
-        
-        let defaults = UserDefaults.standard
-
-        var board: String = ""
-        // grab the user's key
-        if let userBoard = defaults.string(forKey: "board") {
-            board = userBoard
-        }
-        
-        let threadPreview = ["pages/\(board)/\(mainPostID!)/threadLen": threadLen + 1]
-        ref.updateChildValues(threadPreview)
-        
-        
-        currentPageView!.page.threadPreviews[postIndex!].threadLen = currentPageView!.page.threadPreviews[postIndex!].threadLen + 1
-        
-        let isEmpty = 0
-        let dict = [
-            "title": title,
-            "date": date,
-            "userID": userID,
-            "text": postText.text!,
-            "image": userID,
-            "threadID": threadID!,
-            "threadLen": threadLen,
-            "isEmpty": isEmpty
-            ] as [String : Any]
-        
-        // add this to the thread as a post
-        self.ref.child(threadID!).child(userID).setValue(dict)
-
-        // have to upload image as well
-        
-        // Data in memory
-        let data = UIImageJPEGRepresentation(chosenImage!, 0.0)!
-        
-        // Create a reference to the file you want to upload
-        let imgRef = storageRef.child("images/\(userID).jpg")
-        
-        // Upload the file to the path "images/userID.jpg"
-        _ = imgRef.put(data, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-            }
-            // Metadata contains file metadata such as size, content-type, and download URL.
-            _ = metadata.downloadURL
-        }
-        
+        postManager!.createPost(thread: thread!, text: postText.text!, image: chosenImage)
+    }
+    
+    func objectDidPost() {
+        // allow table refreshment
         // if all goes well, display an alert to user
         let alertController = UIAlertController(title: "Post Successful!", message: "Press OK to dismiss", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func objectFailedPost() {
+        // no text entered, so present error
+        let alertController = UIAlertController(title: "Post Unsuccessful...", message: "Please enter some text!", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
