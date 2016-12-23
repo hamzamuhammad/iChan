@@ -29,6 +29,7 @@
 		1FB9B5561E0D3F6C0028C21D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */; };
 		1FB9B5581E0D45CC0028C21D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B5571E0D45CC0028C21D /* LoginViewController.swift */; };
 		1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */; };
+		1FE68C341E0D7E100015DFF3 /* PreviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE68C331E0D7E100015DFF3 /* PreviewTableViewController.swift */; };
 		70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		1FB9B5571E0D45CC0028C21D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
+		1FE68C331E0D7E100015DFF3 /* PreviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewTableViewController.swift; sourceTree = "<group>"; };
 		C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.release.xcconfig"; sourceTree = "<group>"; };
 		E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DED7F86BF5D1451AF38A8F /* Pods-iChan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				1F6DE1A81E0BBF5700A414BD /* Home */,
 				1FB9B5531E0D311B0028C21D /* Thread */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
+				1FE68C331E0D7E100015DFF3 /* PreviewTableViewController.swift */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
 				1F7165121E062BD10001A9EC /* Info.plist */,
@@ -301,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE68C341E0D7E100015DFF3 /* PreviewTableViewController.swift in Sources */,
 				1FB9B5581E0D45CC0028C21D /* LoginViewController.swift in Sources */,
 				1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */,
 				1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */,

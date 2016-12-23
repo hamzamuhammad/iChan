@@ -210,6 +210,34 @@
             </objects>
             <point key="canvasLocation" x="2535" y="834"/>
         </scene>
+        <!--Preview Table View Controller-->
+        <scene sceneID="WFx-Xl-RDp">
+            <objects>
+                <tableViewController storyboardIdentifier="PreviewTableViewController" id="H4k-7K-lxQ" customClass="PreviewTableViewController" customModule="iChan" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qhK-7P-Nc4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PreviewCell" id="DkS-T1-mvE">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DkS-T1-mvE" id="kZj-jL-5Mv">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="H4k-7K-lxQ" id="MqK-P1-dbo"/>
+                            <outlet property="delegate" destination="H4k-7K-lxQ" id="bkV-Zq-lUr"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5s6-Bw-jP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2534" y="-815"/>
+        </scene>
         <!--Page Table View Controller-->
         <scene sceneID="gaW-LF-gJM">
             <objects>

@@ -63,6 +63,10 @@ class PostManager: NSObject {
                 let threadPreview = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/threadLen": thread.len + 1]
                 self.ref.updateChildValues(threadPreview)
                 
+                // 'bump' the corresponding thread
+                let bumpUpdate = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/date": date]
+                self.ref.updateChildValues(bumpUpdate)
+                
                 // update the already loaded page with new length
                 thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen = thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen + 1
                 

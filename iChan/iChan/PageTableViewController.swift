@@ -8,9 +8,11 @@
 
 import UIKit
 
-class PageTableViewController: UITableViewController {
+class PageTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate, PreviewLoadDelegate {
     
     var page: Page?
+    var currentIndex: Int?
+    var currentLabel: UILabel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,7 @@ class PageTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        page!.previewLoadDelegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
     }
@@ -56,8 +59,48 @@ class PageTableViewController: UITableViewController {
         cell.userIDLabel.text = post.userID
         cell.postTextLabel.text = post.text
         cell.postImageView.image = post.image
+        
+        currentIndex = indexPath.row
+        
+        // create tap gesture recognizer
+        let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.textTapped(_:)))
+        
+        // add it to the image view;
+        cell.postTextLabel.addGestureRecognizer(tapGesture)
+        
+        // make sure label can be interacted with by user
+        cell.postTextLabel.isUserInteractionEnabled = true
 
         return cell
+    }
+    
+    func textTapped(_ sender: UITapGestureRecognizer) {
+        // if the tapped view is a UIImageView then set it to imageview
+        if let textLabel = sender.view as? UILabel {
+            print("text tapped")
+            currentLabel = textLabel
+            page!.getPreviewPosts(index: currentIndex!)
+        }
+    }
+    
+    func didLoadPreviews(posts: [String]) {
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "PreviewTableViewController") as! PreviewTableViewController
+        popoverContent.previews = posts
+        popoverContent.modalPresentationStyle = .popover
+        
+        if let popover = popoverContent.popoverPresentationController {
+            
+            popoverContent.preferredContentSize = CGSize(width: 200,height: 250)
+            
+            popover.sourceView = currentLabel
+            popover.delegate = self
+        }
+        
+        self.present(popoverContent, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 
     /*
