@@ -26,6 +26,7 @@
 		1F7BD6E01E074E940083984D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6DF1E074E940083984D /* Post.swift */; };
 		1F7BD6E21E074FDF0083984D /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E11E074FDF0083984D /* Thread.swift */; };
 		1F7BD6E41E0809740083984D /* ThreadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */; };
+		1FB9B5561E0D3F6C0028C21D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */; };
 		1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */; };
 		70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		1F7BD6DF1E074E940083984D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1F7BD6E11E074FDF0083984D /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTableViewCell.swift; sourceTree = "<group>"; };
+		1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
 		C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.release.xcconfig"; sourceTree = "<group>"; };
 		E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
 				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
 				1F0045D61E0A06DD00B4F350 /* PostViewController.swift */,
+				1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */,
 			);
 			name = Thread;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */,
 				1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */,
 				1F0045D71E0A06DD00B4F350 /* PostViewController.swift in Sources */,
+				1FB9B5561E0D3F6C0028C21D /* ImageViewController.swift in Sources */,
 				1F7BD6E21E074FDF0083984D /* Thread.swift in Sources */,
 				1F71650C1E062BD10001A9EC /* iChan.xcdatamodeld in Sources */,
 				1F7BD6D81E0687EF0083984D /* NewThreadViewController.swift in Sources */,

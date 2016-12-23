@@ -66,14 +66,13 @@ class PageViewController: UIPageViewController, UIPopoverPresentationControllerD
         // clear our current pages, and get the new ones
         orderedViewControllers!.removeAll()
         let newPages = eagarPageLoader!.generatePages()
-        print("size of newPages: \(newPages.count)")
 
         // remake all pages and put new page in each VC
         for i in 0..<newPages.count {
             orderedViewControllers!.append(newPageTableViewController())
             orderedViewControllers![i].page = newPages[i]
         }
-        print("get here")
+
         // setup left/right swipe logic again
         self.setViewControllers([orderedViewControllers!.first!], direction: .forward, animated: true, completion: nil)
     }

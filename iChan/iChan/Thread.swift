@@ -64,15 +64,13 @@ class Thread: NSObject {
                 for i in start..<end {
                     self.posts!.append(tempThread[i])
                     self.len = self.len + 1
-                    self.downloadImage0(index: self.posts!.count - 1)
-                    print("inside")
-                    //self.postLoadDelegate!.reloadTable()
+                    self.updateDownloadImage(index: self.posts!.count - 1)
                 }
             }
         })
     }
     
-    func downloadImage0(index: Int) {
+    func updateDownloadImage(index: Int) {
         let post = posts![index]
         
         // Create a reference to the file you want to download
@@ -81,7 +79,6 @@ class Thread: NSObject {
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
-                print("error!!!!!")
                 // Uh-oh, an error occurred!
             } else {
                 post.image = UIImage(data: data!)!
@@ -111,7 +108,7 @@ class Thread: NSObject {
                 let post = Post(snapshot: rest)
                 self.posts![index] = post
                 self.postLoadDelegate!.didLoadPost(index: index)
-                print("index is: \(index)")
+
                 // since we cant get the image yet, we have to download it!
                 self.downloadImage(index: index)
                 

@@ -43,6 +43,9 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+
+        
         thread!.postLoadDelegate = self
         
         // first add all the dummy values so the tableview is functional
@@ -114,9 +117,60 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
             return cell
         }
         
+        if post.image != nil {
+            // create tap gesture recognizer
+            let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
+            
+            // add it to the image view;
+            cell.postImageView.addGestureRecognizer(tapGesture)
+            
+            // make sure imageView can be interacted with by user
+            cell.postImageView.isUserInteractionEnabled = true
+        }
+        
         cell.postImageView.image = post.image
         
         return cell
+    }
+    
+    func imageTapped(_ sender: UITapGestureRecognizer) {
+        // if the tapped view is a UIImageView then set it to imageview
+        if let imageView = sender.view as? UIImageView {
+            print("Image Tapped")
+            
+            //Here you can initiate your new ViewController
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "View Photo", style: .default, handler: { alertAction in
+                // Handle View Photo here
+                // perform segue to VC
+                self.performSegue(withIdentifier: "ShowImageSegue", sender: imageView.image)
+            }))
+            alertController.addAction(UIAlertAction(title: "Save Photo", style: .default, handler: { alertAction in
+                // Handle Save Photo
+                UIImageWriteToSavedPhotosAlbum(imageView.image!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { alertAction in
+                // Cancel
+            }))
+            
+            alertController.modalPresentationStyle = .popover
+            alertController.preferredContentSize = CGSize(width: 200,height: 300)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 
     /*
@@ -154,14 +208,17 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowImageSegue" {
+            let imageViewController = segue.destination as! ImageViewController
+            let image = sender as! UIImage
+            imageViewController.currentImage = image
+        }
     }
-    */
 
 }
