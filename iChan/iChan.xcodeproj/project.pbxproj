@@ -114,22 +114,38 @@
 				1F7165031E062BD10001A9EC /* AppDelegate.swift */,
 				1F6DE1A71E0BBB5800A414BD /* Launch */,
 				1F6DE1A81E0BBF5700A414BD /* Home */,
-				1F6DE1A51E0BB09B00A414BD /* EagarPageLoader.swift */,
-				1F6DE1AB1E0BC63B00A414BD /* PostManager.swift */,
-				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
-				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
-				1F0045D61E0A06DD00B4F350 /* PostViewController.swift */,
+				1FB9B5531E0D311B0028C21D /* Thread */,
 				1F7165071E062BD10001A9EC /* Main.storyboard */,
 				1F71650D1E062BD10001A9EC /* Assets.xcassets */,
 				1F71650F1E062BD10001A9EC /* LaunchScreen.storyboard */,
 				1F7165121E062BD10001A9EC /* Info.plist */,
 				1F71650A1E062BD10001A9EC /* iChan.xcdatamodeld */,
 				1F7165181E062C4D0001A9EC /* GoogleService-Info.plist */,
+				1FB9B5541E0D31430028C21D /* Classes */,
+			);
+			path = iChan;
+			sourceTree = "<group>";
+		};
+		1FB9B5531E0D311B0028C21D /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */,
+				1F72D0951E095068007FEC1F /* ThreadTableViewController.swift */,
+				1F0045D61E0A06DD00B4F350 /* PostViewController.swift */,
+			);
+			name = Thread;
+			sourceTree = "<group>";
+		};
+		1FB9B5541E0D31430028C21D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1F6DE1A51E0BB09B00A414BD /* EagarPageLoader.swift */,
+				1F6DE1AB1E0BC63B00A414BD /* PostManager.swift */,
 				1F7BD6E11E074FDF0083984D /* Thread.swift */,
 				1F6DE1A91E0BC01E00A414BD /* Page.swift */,
 				1F7BD6DF1E074E940083984D /* Post.swift */,
 			);
-			path = iChan;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		8E9E42A2DAE80C969B0EC781 /* Pods */ = {

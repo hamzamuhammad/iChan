@@ -37,30 +37,6 @@ class PostManager: NSObject {
         let date = dateFormatter.string(from: Date())
         let userID = NSUUID().uuidString
         
-        // here, update the post count for main post
-        let threadPost = ["\(thread.ID!)/\(thread.mainPostID!)/threadLen": thread.len + 1]
-        ref.updateChildValues(threadPost)
-        
-        // update it for the thread preview as well
-        let threadPreview = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/threadLen": thread.len + 1]
-        ref.updateChildValues(threadPreview)
-        
-        // update the already loaded page with new length
-        thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen = thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen + 1
-        
-        let dict = [
-            "title": "",
-            "date": date,
-            "userID": userID,
-            "text": text,
-            "threadID": thread.ID,
-            "threadLen": thread.len,
-            "isEmpty": 0
-            ] as [String : Any]
-        
-        // add this to the thread as a post
-        ref.child(thread.ID).child(userID).setValue(dict)
-        
         // have to upload image as well
         if let imageUpload = image {
             // Data in memory
@@ -78,11 +54,33 @@ class PostManager: NSObject {
                 // Metadata contains file metadata such as size, content-type, and download URL.
                 _ = metadata.downloadURL
                 // after this, we're good, so tell user post has been submitted
+                
+                // here, update the post count for main post
+                let threadPost = ["\(thread.ID!)/\(thread.mainPostID!)/threadLen": thread.len + 1]
+                self.ref.updateChildValues(threadPost)
+                
+                // update it for the thread preview as well
+                let threadPreview = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/threadLen": thread.len + 1]
+                self.ref.updateChildValues(threadPreview)
+                
+                // update the already loaded page with new length
+                thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen = thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen + 1
+                
+                let dict = [
+                    "title": "",
+                    "date": date,
+                    "userID": userID,
+                    "text": text,
+                    "threadID": thread.ID,
+                    "threadLen": thread.len,
+                    "isEmpty": 0
+                    ] as [String : Any]
+                
+                // add this to the thread as a post
+                self.ref.child(thread.ID).child(userID).setValue(dict)
+                // fully loaded, so notify whatever VC called this method
                 self.postDelegate!.objectDidPost()
             }
-        }
-        else {
-            self.postDelegate!.objectDidPost()
         }
     }
     
