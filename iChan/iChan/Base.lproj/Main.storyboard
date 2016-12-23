@@ -129,6 +129,7 @@
                     </toolbarItems>
                     <connections>
                         <outlet property="imageView" destination="Jag-8X-Dcv" id="l3a-k8-zOB"/>
+                        <outlet property="postButton" destination="WRu-c0-zgA" id="aA2-XB-isj"/>
                         <outlet property="textField" destination="vE8-uH-pmp" id="tMc-rU-704"/>
                         <outlet property="titleField" destination="Q4L-GW-O7s" id="kzV-fq-GzZ"/>
                     </connections>
@@ -194,7 +195,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ob2-hV-kuW" id="6gN-NL-Hwk">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -222,7 +223,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="167"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o7f-VJ-Jx8" id="PA1-PK-bsc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSL-Vm-dCD">
@@ -334,6 +335,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qdp-F5-y9p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3646" y="27"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="hXe-5o-APy">
+            <objects>
+                <viewController id="QQf-La-cMv" customClass="LoginViewController" customModule="iChan" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0E4-2b-9kH"/>
+                        <viewControllerLayoutGuide type="bottom" id="YT9-OQ-Bri"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FJe-la-9Ly">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please login to authenticate your identity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-Lb-cOg">
+                                <rect key="frame" x="29" y="297" width="316" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQW-mV-yIX" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="112" y="352" width="150" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="facebookLogin:" destination="QQf-La-cMv" eventType="touchUpInside" id="cs4-Ti-ga0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <segue destination="xhK-56-6ZY" kind="show" identifier="LoginSegue" id="DhU-Y6-QLV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPJ-ee-B4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-476" y="27"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="lPB-Cw-Ud1">
@@ -459,6 +498,7 @@
                     </view>
                     <connections>
                         <outlet property="imageName" destination="8K8-UU-Yim" id="G5g-SR-b29"/>
+                        <outlet property="postButton" destination="m3j-mT-dNI" id="j6d-OI-11R"/>
                         <outlet property="postText" destination="UYs-ZQ-Ufg" id="TkC-vc-Kc9"/>
                     </connections>
                 </viewController>
@@ -479,7 +519,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="167"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IHx-Yb-ryM" id="e61-tT-U8v">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6r-2z-5ia">

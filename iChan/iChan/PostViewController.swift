@@ -27,6 +27,7 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var threadTableViewController: ThreadTableViewController?
 
+    @IBOutlet var postButton: UIButton!
     @IBOutlet var postText: UITextView!
     @IBOutlet var imageName: UILabel!
     
@@ -48,6 +49,7 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func submitPost(_ sender: Any) {
+        postButton.isEnabled = false
         postManager!.createPost(thread: thread!, text: postText.text!, image: chosenImage)
     }
     
@@ -58,7 +60,9 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) { () -> () in
+            self.postButton.isEnabled = true
+        }
     }
     
     func objectFailedPost() {
@@ -67,7 +71,9 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) { () -> () in
+            self.postButton.isEnabled = true
+        }
     }
     
     // MARK: - UIImagePickerControllerDelegate Methods

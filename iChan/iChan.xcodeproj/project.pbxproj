@@ -27,6 +27,7 @@
 		1F7BD6E21E074FDF0083984D /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E11E074FDF0083984D /* Thread.swift */; };
 		1F7BD6E41E0809740083984D /* ThreadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */; };
 		1FB9B5561E0D3F6C0028C21D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */; };
+		1FB9B5581E0D45CC0028C21D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B5571E0D45CC0028C21D /* LoginViewController.swift */; };
 		1FC2A81A1E066F5300BF7530 /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */; };
 		70345090588300E9189C54DB /* Pods_iChan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		1F7BD6E11E074FDF0083984D /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		1F7BD6E31E0809740083984D /* ThreadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTableViewCell.swift; sourceTree = "<group>"; };
 		1FB9B5551E0D3F6C0028C21D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		1FB9B5571E0D45CC0028C21D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1FC2A8191E066F5300BF7530 /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
 		C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChan.release.xcconfig"; path = "Pods/Target Support Files/Pods-iChan/Pods-iChan.release.xcconfig"; sourceTree = "<group>"; };
 		E7E1F534D0A11E5E9B4893B6 /* Pods_iChan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 		1F6DE1A71E0BBB5800A414BD /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				1FB9B5571E0D45CC0028C21D /* LoginViewController.swift */,
 				1F7BD6D91E06ADD30083984D /* LaunchViewController.swift */,
 				1F7BD6DB1E06B2E30083984D /* AnimatedEqualizerView.swift */,
 			);
@@ -203,7 +206,13 @@
 				TargetAttributes = {
 					1F7164FF1E062BD10001A9EC = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = HV9K6CVL85;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -292,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB9B5581E0D45CC0028C21D /* LoginViewController.swift in Sources */,
 				1F71651D1E063F230001A9EC /* PageTableViewController.swift in Sources */,
 				1F71651B1E063D350001A9EC /* PageViewController.swift in Sources */,
 				1F0045D71E0A06DD00B4F350 /* PostViewController.swift in Sources */,
@@ -430,6 +440,7 @@
 			baseConfigurationReference = F5DED7F86BF5D1451AF38A8F /* Pods-iChan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HV9K6CVL85;
 				INFOPLIST_FILE = iChan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ham.iChan;
@@ -443,6 +454,7 @@
 			baseConfigurationReference = C36B2A91B05AEFA03FD96607 /* Pods-iChan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HV9K6CVL85;
 				INFOPLIST_FILE = iChan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ham.iChan;

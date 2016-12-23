@@ -22,6 +22,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
     
     var postManager: PostManager?
     
+    @IBOutlet var postButton: UIBarButtonItem!
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textField: UITextView!
     @IBOutlet var imageView: UIImageView!
@@ -34,6 +35,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     @IBAction func postThread(_ sender: Any) {
+        postButton.isEnabled = false
         postManager!.createThread(title: titleField.text!, text: textField.text!, image: imageView.image)
     }
     
@@ -43,7 +45,9 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) { () -> () in
+            self.postButton.isEnabled = true
+        }
     }
     
     func objectFailedPost() {
@@ -52,7 +56,9 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(defaultAction)
         
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true) { () -> () in
+            self.postButton.isEnabled = true
+        }
     }
 
     // MARK: - UIImagePickerControllerDelegate Methods
