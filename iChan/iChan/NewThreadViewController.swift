@@ -39,7 +39,7 @@ class NewThreadViewController: UIViewController, UIImagePickerControllerDelegate
         postManager!.createThread(title: titleField.text!, text: textField.text!, image: imageView.image)
     }
     
-    func objectDidPost() {
+    func objectDidPost(userID: String) {
         // if all goes well, display an alert to user
         let alertController = UIAlertController(title: "Post Successful!", message: "Press OK to dismiss", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)

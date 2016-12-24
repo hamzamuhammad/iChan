@@ -56,6 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        // here, we delete the temp user object we made:
+        
+        var ID: String?
+        
+        // get the currently saved ID
+        let defaults = UserDefaults.standard
+        
+        // grab the user's ID
+        if let userBoard = defaults.string(forKey: "ID") {
+            ID = userBoard
+        }
+        
+        // delete from firebase
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").child(ID!).removeValue()
+        
+        // reset saved val back to blank
+        defaults.set("", forKey: "ID")
     }
 
     // MARK: - Core Data stack

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class LaunchViewController: UIViewController, LaunchAppDelegate {
 
@@ -18,6 +19,8 @@ class LaunchViewController: UIViewController, LaunchAppDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        _ = User.sharedUser
+        
         let view = AnimatedEqualizerView(containerView: animationContainer)
         self.animationContainer.backgroundColor = UIColor.clear
         self.animationContainer.addSubview(view)

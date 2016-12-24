@@ -11,6 +11,7 @@ import UIKit
 class ThreadTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate, PostLoadDelegate {
     
     var thread: Thread?
+    var replyQueue: [String]?
     
     @IBOutlet weak var replyButton: UIBarButtonItem!
     
@@ -18,11 +19,12 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
         // this should be used to call update maybe?
         popoverContent.thread = self.thread
+        popoverContent.replyQueue = self.replyQueue
         popoverContent.modalPresentationStyle = .popover
         
         if let popover = popoverContent.popoverPresentationController {
             
-            popoverContent.preferredContentSize = CGSize(width: 270, height: 300)
+            popoverContent.preferredContentSize = CGSize(width: 250, height: 250)
             
             popover.barButtonItem = replyButton
             popover.delegate = self
@@ -44,7 +46,8 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-
+        // may have to fully reload data (when user refreshes pages, must preserve commenting behavior)
+        replyQueue = []
         
         thread!.postLoadDelegate = self
         
@@ -55,8 +58,10 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         
         // here, we start to lazy load the entire thread
         thread!.lazyLoad()
+        thread!.loadPostInfo()
         
         // also, listen for new changes
+        thread!.postLoadDelegate = self
         thread!.updateThread()
     }
     
@@ -112,6 +117,23 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         cell.userIDLabel.text = post.userID
         cell.postTextLabel.text = post.text
         
+        if post.visibility == "self" {
+            cell.backgroundColor = UIColor.cyan
+        }
+        else if post.visibility == "reply" {
+            cell.backgroundColor = UIColor.green
+        }
+        
+        // make the reply gesture recognizer
+        // create tap gesture recognizer
+        let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.postTapped(_:)))
+        
+        // add it to the image view;
+        cell.userIDLabel.addGestureRecognizer(tapGesture)
+        
+        // make sure imageView can be interacted with by user
+        cell.userIDLabel.isUserInteractionEnabled = true
+        
         // if the image hasn't been loaded, don't try to put it there!
         if post.isEmpty == 1 {
             return cell
@@ -131,6 +153,31 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         cell.postImageView.image = post.image
         
         return cell
+    }
+    
+    func postTapped(_ sender: UITapGestureRecognizer) {
+        if let userIDLabel = sender.view as? UILabel {
+            
+            //Here you can initiate your new ViewController
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "Add to Reply Queue", style: .default, handler: { alertAction in
+                // Handle View Photo here
+                // highlight appropriate cell here
+                self.replyQueue!.append(userIDLabel.text!)
+                
+            }))
+            alertController.addAction(UIAlertAction(title: "Report Post", style: .default, handler: { alertAction in
+                // Handle malicious behavior (still have to implement!)
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { alertAction in
+                // Cancel
+            }))
+            
+            alertController.modalPresentationStyle = .popover
+            alertController.preferredContentSize = CGSize(width: 200,height: 300)
+            
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     func imageTapped(_ sender: UITapGestureRecognizer) {

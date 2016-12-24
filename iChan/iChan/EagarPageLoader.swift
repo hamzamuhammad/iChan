@@ -42,12 +42,15 @@ class EagarPageLoader: NSObject {
         if let userBoard = defaults.string(forKey: "board") {
             return userBoard
         }
-        
-        return ""
+        else {
+            defaults.set("tv", forKey: "board")
+            return "tv"
+        }
     }
     
     func mainFetchLoop() {
         // sort pages for given board based off of date
+
         let query = ref.child("pages").child(EagarPageLoader.getSavedBoard()).queryOrdered(byChild: "date")
         
         // get all of the posts for the board
@@ -82,12 +85,13 @@ class EagarPageLoader: NSObject {
             let post = posts![index]
             
             // Create a reference to the file you want to download
-            let imageRef = storageRef.child("images/\(post.userID).jpg")
+            let imageRef = storageRef.child("images/\(post.userID!).jpg")
             
             // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
             imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
                 if error != nil {
                     // Uh-oh, an error occurred!
+                    print("error: \(error.debugDescription)")
                 } else {
                     post.image = UIImage(data: data!)!
                 }

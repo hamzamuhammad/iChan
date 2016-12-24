@@ -7,16 +7,12 @@
 //
 
 import UIKit
-import Firebase
 import FirebaseDatabase
-import FirebaseStorage
 
 class PostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PostDelegate {
     
+    // basic ref to database
     let ref = FIRDatabase.database().reference()
-    
-    // Create a storage reference from our storage service
-    let storageRef = FIRStorage.storage().reference(forURL: "gs://ichan-ec477.appspot.com")
     
     let imagePicker = UIImagePickerController()
     
@@ -26,6 +22,8 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var postManager: PostManager?
     
     var threadTableViewController: ThreadTableViewController?
+    
+    var replyQueue: [String]?
 
     @IBOutlet var postButton: UIButton!
     @IBOutlet var postText: UITextView!
@@ -53,8 +51,47 @@ class PostViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         postManager!.createPost(thread: thread!, text: postText.text!, image: chosenImage)
     }
     
-    func objectDidPost() {
-        // allow table refreshment
+    func updateOtherUserReplies(userID: String) {
+        // sort pages for given board based off of date
+        let query = ref.child("users")
+        
+        // get all of the posts for the board
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // go through each post
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                // create the user and then modify it
+                let user = User(snapshot: rest)
+                let createdPosts = user.createdPosts
+                
+                // could make more efficient by exiting after if is hit
+                for reply in self.replyQueue! {
+                    for post in createdPosts! {
+                        if reply == post {
+                            // add our own postID to the user's reply array && update firebase
+                            user.repliesToThisUser!.append(userID)
+                            let replyUpdate = ["users/\(user.tempID)/repliesToThisUser": user.repliesToThisUser!]
+                            self.ref.updateChildValues(replyUpdate)
+                        }
+                    }
+                }
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+            // shouldn't get here
+        }
+    }
+    
+    func objectDidPost(userID: String) {
+        // update corresponding user values
+        updateOtherUserReplies(userID: userID)
+        
+        // add to our own user data as well
+        User.sharedUser.createdPosts!.append(userID)
+        let replyUpdate = ["users/\(User.sharedUser.tempID!)/createdPosts": User.sharedUser.createdPosts!]
+        ref.updateChildValues(replyUpdate)
+        
         // if all goes well, display an alert to user
         let alertController = UIAlertController(title: "Post Successful!", message: "Press OK to dismiss", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)

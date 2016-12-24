@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseStorage
 
 protocol PostDelegate: class {
-    func objectDidPost()
+    func objectDidPost(userID: String)
     func objectFailedPost()
 }
 
@@ -25,6 +25,40 @@ class PostManager: NSObject {
     
     // allows NewThreadViewController (NTVC) to listen to our commands
     weak var postDelegate: PostDelegate?
+    
+    func updateState(thread: Thread, date: String, userID: String, text: String) {
+        // here, update the post count for main post
+        let threadPost = ["\(thread.ID!)/\(thread.mainPostID!)/threadLen": thread.len + 1]
+        self.ref.updateChildValues(threadPost)
+        
+        // update it for the thread preview as well
+        let threadPreview = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/threadLen": thread.len + 1]
+        self.ref.updateChildValues(threadPreview)
+        
+        // 'bump' the corresponding thread
+        let bumpUpdate = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/date": date]
+        self.ref.updateChildValues(bumpUpdate)
+        
+        // update the already loaded page with new length
+        thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen = thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen + 1
+        
+        // post the actual text data
+        let dict = [
+            "title": "",
+            "date": date,
+            "userID": userID,
+            "text": text,
+            "threadID": thread.ID,
+            "threadLen": thread.len,
+            "isEmpty": 0,
+            "visibility": "default"
+            ] as [String : Any]
+        
+        // add this to the thread as a post
+        self.ref.child(thread.ID).child(userID).setValue(dict)
+        // fully loaded, so notify whatever VC called this method
+        self.postDelegate!.objectDidPost(userID: userID)
+    }
     
     func createPost(thread: Thread, text: String, image: UIImage?) {
         if text == "" {
@@ -55,36 +89,12 @@ class PostManager: NSObject {
                 _ = metadata.downloadURL
                 // after this, we're good, so tell user post has been submitted
                 
-                // here, update the post count for main post
-                let threadPost = ["\(thread.ID!)/\(thread.mainPostID!)/threadLen": thread.len + 1]
-                self.ref.updateChildValues(threadPost)
-                
-                // update it for the thread preview as well
-                let threadPreview = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/threadLen": thread.len + 1]
-                self.ref.updateChildValues(threadPreview)
-                
-                // 'bump' the corresponding thread
-                let bumpUpdate = ["pages/\(EagarPageLoader.getSavedBoard())/\(thread.mainPostID!)/date": date]
-                self.ref.updateChildValues(bumpUpdate)
-                
-                // update the already loaded page with new length
-                thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen = thread.currentPageView.page!.getPost(index: thread.pagePostIndex).threadLen + 1
-                
-                let dict = [
-                    "title": "",
-                    "date": date,
-                    "userID": userID,
-                    "text": text,
-                    "threadID": thread.ID,
-                    "threadLen": thread.len,
-                    "isEmpty": 0
-                    ] as [String : Any]
-                
-                // add this to the thread as a post
-                self.ref.child(thread.ID).child(userID).setValue(dict)
-                // fully loaded, so notify whatever VC called this method
-                self.postDelegate!.objectDidPost()
+                // modify vals so data is displayed correctly
+                self.updateState(thread: thread, date: date, userID: userID, text: text)
             }
+        }
+        else {
+            self.updateState(thread: thread, date: date, userID: userID, text: text)
         }
     }
     
@@ -110,7 +120,8 @@ class PostManager: NSObject {
             "text": text,
             "threadID": threadID,
             "threadLen": 1,
-            "isEmpty": 0
+            "isEmpty": 0,
+            "visibility": "default"
             ] as [String : Any]
         
         // set this as a new 'thread'
@@ -136,11 +147,11 @@ class PostManager: NSObject {
                 _ = metadata.downloadURL
                 
                 // let NTVC know that it can post an alert
-                self.postDelegate!.objectDidPost()
+                self.postDelegate!.objectDidPost(userID: "")
             }
         }
         else {
-            postDelegate!.objectDidPost()
+            postDelegate!.objectDidPost(userID: "")
         }
     }
 }

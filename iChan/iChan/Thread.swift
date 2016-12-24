@@ -45,6 +45,34 @@ class Thread: NSObject {
         posts = []
     }
     
+    func loadPostInfo() {
+        // get info for our temp user obj
+        let query = ref.child("users").child(User.sharedUser.tempID!)
+        
+        // get all of the posts for the board
+        query.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let user = User(snapshot: snapshot)
+            
+            for post in self.posts! {
+                for userPost in user.createdPosts! {
+                    if post.userID == userPost {
+                        post.visibility = "self"
+                    }
+                }
+                
+                for replyPost in user.repliesToThisUser! {
+                    if post.userID == replyPost {
+                        post.visibility = "other"
+                    }
+                }
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+            // shouldn't get here
+        }
+    }
+    
     func updateThread() {
         let postRef = FIRDatabase.database().reference().child(ID).queryOrdered(byChild: "date")
         
@@ -74,12 +102,13 @@ class Thread: NSObject {
         let post = posts![index]
         
         // Create a reference to the file you want to download
-        let imageRef = storageRef.child("images/\(post.userID).jpg")
+        let imageRef = storageRef.child("images/\(post.userID!).jpg")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
                 // Uh-oh, an error occurred!
+                print("error: \(error.debugDescription)")
             } else {
                 post.image = UIImage(data: data!)!
             }
@@ -88,6 +117,7 @@ class Thread: NSObject {
             self.posts![index].isEmpty = 0
             // notify tableview that this image has been downloaded
             self.postLoadDelegate!.reloadTable()
+            return
         }
     }
     
@@ -127,12 +157,13 @@ class Thread: NSObject {
         let post = posts![index]
         
         // Create a reference to the file you want to download
-        let imageRef = storageRef.child("images/\(post.userID).jpg")
+        let imageRef = storageRef.child("images/\(post.userID!).jpg")
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
                 // Uh-oh, an error occurred!
+                print("error: \(error.debugDescription)")
             } else {
                 post.image = UIImage(data: data!)!
             }
