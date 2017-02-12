@@ -1,2 +1,2 @@
-# iChan
-iOS app that mimics an imageboard.
+# uForum
+iOS app that mimics a forum.
