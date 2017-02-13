@@ -116,7 +116,9 @@ class Thread: NSObject {
             // this is fully loaded, so we can return an image
             self.posts![index].isEmpty = 0
             // notify tableview that this image has been downloaded
-            self.postLoadDelegate!.reloadTable()
+            if let delegate = self.postLoadDelegate {
+                delegate.reloadTable()
+            }
             return
         }
     }

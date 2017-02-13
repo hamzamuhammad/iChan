@@ -118,7 +118,7 @@ class ThreadTableViewController: UITableViewController, UIPopoverPresentationCon
         cell.postTextLabel.text = post.text
         
         if post.visibility == "self" {
-            cell.backgroundColor = UIColor.cyan
+            cell.backgroundColor = UIColor.lightGray
         }
         else if post.visibility == "reply" {
             cell.backgroundColor = UIColor.green
